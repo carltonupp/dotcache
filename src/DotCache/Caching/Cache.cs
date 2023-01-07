@@ -10,16 +10,22 @@ public class Cache : ICache
         {
             throw new ArgumentException("Parameter '{Parameter}' cannot be null or empty.", nameof(key));
         }
-        
-        return _cacheItems[key].Value switch
+
+        return _cacheItems.TryGetValue(key, out var item) switch
         {
-            TValue val => val,
+            true when item?.Value is TValue val => val,
             _ => default
         };
     }
 
     public void Put<TValue>(string key, TValue value)
     {
+        ArgumentNullException.ThrowIfNull(value);
+        if (string.IsNullOrWhiteSpace(key))
+        {
+            throw new ArgumentException("Parameter '{Parameter}' cannot be null or empty.", nameof(key));
+        }
+        
         var item = new CacheItem
         {
             Value = value
@@ -30,11 +36,11 @@ public class Cache : ICache
 
     public void Delete(string key)
     {
-        throw new NotImplementedException();
+        _cacheItems.Remove(key);
     }
 
     public void Flush()
     {
-        throw new NotImplementedException();
+        _cacheItems.Clear();
     }
 }
