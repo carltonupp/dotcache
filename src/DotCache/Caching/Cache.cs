@@ -1,24 +1,28 @@
+using DotCache.Abstractions.Caching;
+using DotCache.Abstractions.Storage;
+
 namespace DotCache.Caching;
 
 public class Cache : ICache
 {
-    private readonly Dictionary<string, CacheItem> _cacheItems = new();
+    private readonly ICacheStore _store;
 
-    public TValue? Get<TValue>(string key)
+    public Cache(ICacheStore store)
+    {
+        _store = store;
+    }
+
+    public object? Get(string key)
     {
         if (string.IsNullOrWhiteSpace(key))
         {
             throw new ArgumentException("Parameter '{Parameter}' cannot be null or empty.", nameof(key));
         }
 
-        return _cacheItems.TryGetValue(key, out var item) switch
-        {
-            true when item?.Value is TValue val => val,
-            _ => default
-        };
+        return _store.Get(key);
     }
 
-    public void Put<TValue>(string key, TValue value)
+    public void Put(string key, object value)
     {
         ArgumentNullException.ThrowIfNull(value);
         if (string.IsNullOrWhiteSpace(key))
@@ -31,16 +35,16 @@ public class Cache : ICache
             Value = value
         };
         
-        _cacheItems.Add(key, item);
+        _store.Put(key, value);
     }
 
     public void Delete(string key)
     {
-        _cacheItems.Remove(key);
+        _store.Delete(key);
     }
 
     public void Flush()
     {
-        _cacheItems.Clear();
+        _store.Flush();
     }
 }

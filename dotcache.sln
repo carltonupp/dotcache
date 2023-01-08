@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotCache", "src\DotCache\Do
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotCache.Tests", "test\DotCache.Tests\DotCache.Tests.csproj", "{26541FDF-3401-4D55-B264-154899F190A3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotCache.Abstractions", "src\DotCache.Abstractions\DotCache.Abstractions.csproj", "{4AAB2EE7-EFBC-40D2-8A51-09A551CD2EBC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{26541FDF-3401-4D55-B264-154899F190A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26541FDF-3401-4D55-B264-154899F190A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26541FDF-3401-4D55-B264-154899F190A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AAB2EE7-EFBC-40D2-8A51-09A551CD2EBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AAB2EE7-EFBC-40D2-8A51-09A551CD2EBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AAB2EE7-EFBC-40D2-8A51-09A551CD2EBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AAB2EE7-EFBC-40D2-8A51-09A551CD2EBC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

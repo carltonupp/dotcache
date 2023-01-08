@@ -1,21 +1,22 @@
 using DotCache.Caching;
+using DotCache.Tests.Fixtures;
 
 namespace DotCache.Tests.Caching;
 
-public class CacheTests : IClassFixture<Cache>
+public class CacheTests : IClassFixture<CacheTestsFixtureHelper>
 {
     private readonly Cache _fixture;
 
-    public CacheTests(Cache fixture)
+    public CacheTests(CacheTestsFixtureHelper fixtureHelper)
     {
-        _fixture = fixture;
+        _fixture = fixtureHelper.Fixture;
     }
 
     [Fact]
     public void CanAddItemToCacheAndRetrieve()
     {
         _fixture.Put("number-of-days", 7);
-        var numberOfDays = _fixture.Get<int>("number-of-days");
+        var numberOfDays = _fixture.Get("number-of-days");
         Assert.Equal(7, numberOfDays);
     }
 
@@ -24,7 +25,7 @@ public class CacheTests : IClassFixture<Cache>
     {
         Assert.Throws<ArgumentException>(() =>
         {
-            _fixture.Get<int>("");
+            _fixture.Get("");
         });
     }
 
@@ -42,7 +43,7 @@ public class CacheTests : IClassFixture<Cache>
     {
         Assert.Throws<ArgumentNullException>(() =>
         {
-            _fixture.Put<object>("last_tested_date", null);
+            _fixture.Put("last_tested_date", null);
         });
     }
 
@@ -51,8 +52,8 @@ public class CacheTests : IClassFixture<Cache>
     {
         _fixture.Put("number_of_days", 7);
         _fixture.Delete("number_of_days");
-        var value = _fixture.Get<int>("number_of_days");
-        Assert.Equal(0, value);
+        var value = _fixture.Get("number_of_days");
+        Assert.Null(value);
     }
 
     [Fact]
@@ -68,7 +69,7 @@ public class CacheTests : IClassFixture<Cache>
         
         _fixture.Flush();
 
-        var day1ShouldBeNull = _fixture.Get<string>("day_1");
+        var day1ShouldBeNull = _fixture.Get("day_1");
         Assert.Null(day1ShouldBeNull);
     }
 }
