@@ -8,17 +8,23 @@ public class DefaultCacheStore : ICacheStore
 
     public object? Get(string key)
     {
-        var item = _items.TryGetValue(key, out var value);
-        return value;
+        return _items.TryGetValue(key, out var value) switch
+        {
+            true => value,
+            _ => default
+        };
     }
 
     public void Put(string key, object value)
     {
+        ArgumentNullException.ThrowIfNullOrEmpty(key);
+        ArgumentNullException.ThrowIfNull(value);
         _items[key] = value;
     }
 
     public void Delete(string key)
     {
+        ArgumentNullException.ThrowIfNullOrEmpty(key);
         _items.Remove(key);
     }
 
