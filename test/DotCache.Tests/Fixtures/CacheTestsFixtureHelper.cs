@@ -15,7 +15,7 @@ public class CacheTestsFixtureHelper
             var settingsProvider = new Mock<ICacheSettingsProvider>();
             settingsProvider.Setup(sp => sp.GetSettings()).Returns(new CacheSettings
             {
-                TimeToLive = 300
+                SecondsUntilExpiry = 300
             });
             return new Cache(store, settingsProvider.Object);
         }

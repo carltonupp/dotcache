@@ -49,7 +49,7 @@ public class Cache : ICache
         var cacheItem = new CacheItem
         {
             Value = value,
-            ExpiryDate = DateTime.Now.AddSeconds(settings.TimeToLive)
+            ExpiryDate = DateTime.Now.AddSeconds(settings.SecondsUntilExpiry)
         };
 
         _store.Put(key, cacheItem);
