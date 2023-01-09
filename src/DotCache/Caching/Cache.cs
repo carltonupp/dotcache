@@ -19,7 +19,8 @@ public class Cache : ICache
             throw new ArgumentException("Parameter '{Parameter}' cannot be null or empty.", nameof(key));
         }
 
-        return _store.Get(key);
+        var cacheItem = _store.Get(key);
+        return cacheItem?.Value;
     }
 
     public void Put(string key, object value)
@@ -30,7 +31,12 @@ public class Cache : ICache
             throw new ArgumentException("Parameter '{Parameter}' cannot be null or empty.", nameof(key));
         }
 
-        _store.Put(key, value);
+        var cacheItem = new CacheItem
+        {
+            Value = value
+        };
+
+        _store.Put(key, cacheItem);
     }
 
     public void Delete(string key)

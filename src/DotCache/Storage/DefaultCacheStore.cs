@@ -1,30 +1,30 @@
+using System.Collections;
+using DotCache.Abstractions.Caching;
 using DotCache.Abstractions.Storage;
 
 namespace DotCache.Storage;
 
 public class DefaultCacheStore : ICacheStore
 {
-    private readonly Dictionary<string, object> _items = new();
+    private readonly Hashtable _items = new();
 
-    public object? Get(string key)
+    public CacheItem? Get(string key)
     {
-        return _items.TryGetValue(key, out var value) switch
+        if (_items[key] is CacheItem cacheItem)
         {
-            true => value,
-            _ => default
-        };
+            return cacheItem;
+        }
+
+        return default;
     }
 
-    public void Put(string key, object value)
+    public void Put(string key, CacheItem value)
     {
-        ArgumentNullException.ThrowIfNullOrEmpty(key);
-        ArgumentNullException.ThrowIfNull(value);
         _items[key] = value;
     }
 
     public void Delete(string key)
     {
-        ArgumentNullException.ThrowIfNullOrEmpty(key);
         _items.Remove(key);
     }
 
