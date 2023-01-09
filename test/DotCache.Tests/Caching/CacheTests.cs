@@ -9,7 +9,7 @@ public class CacheTests : IClassFixture<CacheTestsFixtureHelper>
 
     public CacheTests(CacheTestsFixtureHelper fixtureHelper)
     {
-        _fixture = fixtureHelper.Fixture;
+        _fixture = CacheTestsFixtureHelper.Fixture;
     }
 
     [Fact]
@@ -18,6 +18,15 @@ public class CacheTests : IClassFixture<CacheTestsFixtureHelper>
         _fixture.Put("number-of-days", 7);
         var numberOfDays = _fixture.Get("number-of-days");
         Assert.Equal(7, numberOfDays);
+    }
+
+    [Fact]
+    public void CanGetCacheItem()
+    {
+        _fixture.Put("number-of-days", 7);
+        var cacheItem = _fixture.GetCacheItem("number-of-days");
+        Assert.Equal(7, cacheItem?.Value);
+        Assert.NotEqual(DateTime.Now, cacheItem?.ExpiryDate);
     }
 
     [Fact]
