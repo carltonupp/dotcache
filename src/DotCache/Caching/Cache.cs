@@ -29,12 +29,7 @@ public class Cache : ICache
         {
             throw new ArgumentException("Parameter '{Parameter}' cannot be null or empty.", nameof(key));
         }
-        
-        var item = new CacheItem
-        {
-            Value = value
-        };
-        
+
         _store.Put(key, value);
     }
 
