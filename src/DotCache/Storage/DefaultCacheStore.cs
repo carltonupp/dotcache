@@ -31,14 +31,5 @@ public class DefaultCacheStore : ICacheStore
         _items.Clear();
     }
 
-    public IEnumerable<(string Key, CacheItem CacheItem)> Items
-    {
-        get
-        {
-            foreach (var (key, value) in _items)
-            {
-                yield return (key, value);
-            }
-        }
-    }
+    public IEnumerable<CacheItem> Items => _items.Values;
 }

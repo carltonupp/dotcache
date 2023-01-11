@@ -36,10 +36,7 @@ public class Cache : ICache
         return _store.Get(key);
     }
 
-    public IEnumerable<(string Key, CacheItem Item)> GetCacheItems()
-    {
-        return _store.Items;
-    }
+    public IEnumerable<CacheItem> ExpiredItems => _store.Items.Where(item => item.IsExpired());
 
     public void Put(string key, object value)
     {
