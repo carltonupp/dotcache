@@ -1,3 +1,4 @@
+using System.Collections;
 using DotCache.Abstractions.Caching;
 
 namespace DotCache.Abstractions.Storage;
@@ -8,4 +9,5 @@ public interface ICacheStore
     void Put(string key, CacheItem value);
     void Delete(string key);
     void Flush();
+    IEnumerable<(string Key, CacheItem CacheItem)> Items { get; }
 }

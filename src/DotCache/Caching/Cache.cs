@@ -36,6 +36,11 @@ public class Cache : ICache
         return _store.Get(key);
     }
 
+    public IEnumerable<(string Key, CacheItem Item)> GetCacheItems()
+    {
+        return _store.Items;
+    }
+
     public void Put(string key, object value)
     {
         ArgumentNullException.ThrowIfNull(value);
